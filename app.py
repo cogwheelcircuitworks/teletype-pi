@@ -21,12 +21,23 @@ DATA_RLY=8 # runs an opto-isolated N-Channel mosfet which toggles relay
 gpio8period = 20
 
 
+"""
+macros called by webiopi (see __main__)
+
+"""
+
 def baud_rate_inc():
+  """
+  increment baud rate. Only used when discovering baud rate of unknown tty
+  """
   global gpio8period
   gpio8period = gpio8period + 1
   print repr(gpio8period)
 
 def baud_rate_dec():
+  """
+  decrement baud rate. Only used when discovering baud rate of unknown tty
+  """
   global gpio8period
   if (gpio8period > 1):
     gpio8period = gpio8period - 1
@@ -34,29 +45,55 @@ def baud_rate_dec():
 
 
 def tty_start():
+  """
+  stop tty. normally called implicitly as needed. 
+  this instance turns the motor on with a longer timeout
+  """
   teletype.motor_start(time_secs=30)
 
 def tty_stop():
+  """
+  whoa, nellie.
+  """
   teletype.motor_stop()
 
 def tty_tx(c):
+  """
+  transmits a given character
+  """
   teletype.tx(c)
 
 def tty_tx_str(s):
+  """
+  transmits a given string. URI decoding performed
+  """
   print repr(s)
   teletype.tx_str(s)
 
 def tty_tx_ctl(c):
+  """
+  transmits a control character
+  """
   teletype.tx_ctl(c)
 
 
 def tty_test(s):
+  """
+  special test. See teletype module
+  """
   teletype.test(s)
 
 
 MotorOnCounter = 10
 
 def loop():
+  """
+  webiopi will call this continuously. 
+
+  really nothing to do here in production
+
+  """
+
   # Example loop which toggle GPIO 7 each 5 seconds
   #GPIO.output(PWR_RLY not GPIO.input(7))
   #                                   sdddddss
@@ -97,7 +134,6 @@ def loop():
 
   
 if __name__ == "__main__":
-
   """
   execution starts here
   """
@@ -108,8 +144,9 @@ if __name__ == "__main__":
 
   server = webiopi.Server(port=80,coap_port=None)
 
-  server.host="192.168.42.1"
+  #server.host="192.168.42.1"
 
+  # add the macros which the browser will call
   server.addMacro(baud_rate_inc)
   server.addMacro(baud_rate_dec)
   server.addMacro(tty_start)
@@ -119,13 +156,8 @@ if __name__ == "__main__":
   server.addMacro(tty_tx_ctl)
   server.addMacro(tty_test)
 
-  """
-  for n in range(1,79):
-    teletype.tx("00100") # space
-  """
-
-  webiopi.runLoop(loop) 
+  webiopi.runLoop(loop)  # never exits 
 
   server.stop() # Cleanly stop the server
 
-  teletype.motor_stop()
+  teletype.motor_stop() # cleanly stop the tty

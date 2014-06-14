@@ -311,6 +311,9 @@ def tx_keycode(s):
 shifted = False
 
 def update_column_position():
+  """
+  keep track of column position so we can insert cr lf when necessary
+  """
   global ColumnCurrentPosition, ColumnMax
   ColumnCurrentPosition = ColumnCurrentPosition + 1
   if ColumnCurrentPosition > ColumnMax:
@@ -320,12 +323,18 @@ def update_column_position():
     ColumnCurrentPosition = 0; print "column reset to 0"
 
 def shift_up():
+  """
+  Shift up to figures
+  """
   global shifted
   if not shifted:
     tx_ctl('figs')
     shifted = True
 
 def shift_down():
+  """
+  Shift down to letters
+  """
   global shifted
   if shifted:
     tx_ctl('ltrs')
@@ -333,6 +342,9 @@ def shift_down():
 
 
 def tx_ascii_chr(c):
+  """
+  send an ascii character
+  """
   if (ascii_to_baudot_char.has_key(c)):
       a = ascii_to_baudot_char[c]
       #print 'ascii_to_baudot_char(%d): %s' % (i,a)
@@ -350,9 +362,15 @@ def tx_ascii_chr(c):
 
 
 def tx(c):
+  """
+  send an ascii character
+  """
   tx_keycode(c)
 
 def tx_str(s):
+  """
+  transmit an ascii string
+  """
   de_uried_str = urllib.unquote(s)
   for i in range(len(de_uried_str)):
     print '[%s]' % de_uried_str[i]
@@ -360,6 +378,9 @@ def tx_str(s):
 
 
 def tx_ctl(c):
+  """
+  transmit a control code 'lf' = line feed, 'cr' = carriage return, etc.
+  """
   global ColumnCurrentPosition
   print "tx_ctl(%s)" % c
   if (c == 'cr'):
