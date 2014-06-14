@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--
+WebIO Pi Application
+-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=2">
+
+  <link rel='stylesheet'  href='/bootstrap/css/bootstrap.min.css' type='text/css'/>
+  <title>Teletype</title>
+  <script type="text/javascript" src="/webiopi.js"></script>
+  <script type="text/javascript" src="/app.js"></script>
+  <link rel='stylesheet'  href='/app.css' type='text/css'/>
+</head>
+<body>
+<div class="container-fluid">
+<!-- webiopi app.js will tie this up with content = $("#content"); -->
+<div id="content">
+  <h3>Raspberry Pi Teletype</h3>
+  <div class="row">
+  <div class="col-md-10">
+        <input class="form-control input-lg" id="tty_tx_str_input" placeholder="Type Something" type="textarea"> 
+  </div>
+  <div class="col-md-1">
+        <button type="submit" class="btn btn-lg btn-warning" id="tty_tx_str">SEND</button>
+  </div>
+  </div> <!-- row -->
+  <div class="col-md-12">
+   <br>
+  <btn class="btn btn-lg  btn-success " id="tty_start_btn">MOTOR ON</btn>
+  <btn class="btn btn-lg  btn-danger " id="tty_stop_btn">MOTOR OFF</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="cr">Carriage Return</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="lf">Line Feed</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="figs">Shift Up</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="ltrs">Shift Down</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="bell">Bell</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="null">Null</btn>
+  <btn class="btn btn-lg  btn-info tty_tx_ctl" id="tty_tx_ctl" value="space">Space</btn>
+  <!-- 
+  <btn class="btn btn-lg  btn-default tty_test" id="tty_test" value="allpats">All Patterns</btn>
+  -->
+
+  </div>
+  <br>
+
+<!-- unbuffered transmit -->
+<!--  
+<form class="form" role="form">
+  <div class="form-group">
+  <input class="form-control input-lg" id="tty_tx_chr_input" placeholder="Type Something" type="text"> 
+  </div>
+  <button type="submit" class="btn btn-lg btn-default" id="tty_tx_chr">SEND</button>
+</form>
+-->
+</div>
+
+</body>
+</html>
+

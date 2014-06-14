@@ -1,0 +1,23 @@
+button {
+        display: block;
+        margin: 5px 5px 5px 5px;
+        width: 160px;
+        height: 45px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: black;
+}
+
+input[type="range"] {
+        display: block;
+        width: 160px;
+        height: 45px;
+}
+
+#gpio8.LOW {
+        background-color: White;
+}
+
+#gpio8.HIGH {
+        background-color: Red;
+}
